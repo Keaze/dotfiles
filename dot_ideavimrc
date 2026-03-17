@@ -1,34 +1,279 @@
-" .ideavimrc is a configuration file for IdeaVim plugin. It uses
-"   the same commands as the original .vimrc configuration.
-" You can find a list of commands here: https://jb.gg/h38q75
-" Find more examples here: https://jb.gg/share-ideavimrc
+" .ideavimrc - LazyVim-style configuration for IdeaVim
 
-
-"" -- Suggested options --
-" Show a few lines of context around the cursor. Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
-set scrolloff=7
-
-" Do incremental searching.
 set incsearch
+set quickscope
+set scrolloff=10
+set linenumber
+set showmode
+set showcmd
+set smartindent
+set visualbell
+set clipboard+=unnamed
+set ignorecase
+set smartcase
+set hlsearch
+set which-key
+set peekaboo
+set notimeout
+set functiontextobj
+set mini-ai
+set easymotion
+set surround
+set textobj-entire
+set ideajoin
+set dial
 
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
-" Highlight copied text
 Plug 'machakann/vim-highlightedyank'
-" Commentary plugin
-Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/ReplaceWithRegister'
 
-""test
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
+map Q gq
+ * Diese Klasse enthält Methoden, um zu prüfen, ob ein Platz das leerfahren Knz habenrden darf,
+crement<cr>    /**
+     * Ermittelt und setzt das Platz-Leerfahren-Kennzeichen für einen Artikel, falls notwendig.
+     * <p>
+     * Prüft, ob für den angegebenen Artikel und Mandanten bereits ein Platz mit Leerfahren-Kennzeichen existiert.
+     * Falls nicht, wird der nächste geeignete Platz gesucht und das Kennzeichen gesetzt.
+     *
+     * @param artikelnr      Die Artikelnummer
+     * @param mandant        Der Mandant
+     * @param aktuellerPlatz Der aktuelle Platz (optional, kann leer sein)
+     */
+    /**
+     * Prüft, ob ein Platz leergefahren werden darf.
+     * <p>
+     * Die Erlaubnis richtet sich nach den in den Systemparametern hinterlegten Platzarten.
+     *
+     * @param platzId Die Platz-ID
+     * @return true, wenn der Platz leergefahren werden darf, sonst false
+     */
+    /**
+     * Steuert das automatische Leerfahren eines Platzes im Kontext eines Tpa.
+     * <p>
+     * Prüft, ob die Bedingungen für das Leerfahren erfüllt sind (Platz leer, Platzart erlaubt, Tpa-Typ erlaubt)
+     * und ruft ggf. die eigentliche Leerfahren-Logik auf.
+     *
+     * @param tpa Das Tpa-Objekt
+     */
+    /**
+     * Liefert die Loggerinfo für die aktuelle Work-Instanz.
+     *
+     * @return Loggerinfo-String
+     */
+    /**
+     * Liefert die aktuelle DAO-Factory.
+     *
+     * @return DAO-Factory
+     */
+    /**
+     * Liefert die aktuelle Logik-Factory.
+     *
+     * @return Logik-Factory
+     */
 
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
+" Map Ctrl+X to decrement  
+nnoremap <C-x> :DialDecrement<cr>
+let mapleader = " "
 
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
+" LazyVim-style Window Navigation (Ctrl+hjkl)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Buffer Navigation (Shift+hl)
+nnoremap <S-h> :bprevious<CR>
+nnoremap <S-l> :bnext<CR>
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+
+" Move Lines (Alt+jk)
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Jump between methods
+nnoremap [[ <Action>(MethodUp)
+nnoremap ]] <Action>(MethodDown)
+
+" Popup navigation
+inoremap <C-j> <Action>(PopupMenu-selectNext)
+inoremap <C-k> <Action>(PopupMenu-selectPrev)
+
+" Better indenting
+xnoremap < <gv
+xnoremap > >gv
+
+" Clear search with Esc
+nnoremap <Esc> :noh<CR>
+
+" Save file
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+xnoremap <C-s> <Esc>:w<CR>
+
+" Diagnostics Navigation
+nmap [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)
+nmap [e <Action>(GotoPreviousError)
+nmap ]e <Action>(GotoNextError)
+
+" Buffer Management
+map <leader>bb :e #<CR>
+map <leader>bd :bd<CR>
+map <leader>bD :bd!<CR>
+
+" Code Actions
+map <leader>ca <Action>(ShowIntentionActions)
+map <leader>cd <Action>(ShowErrorDescription)
+map <leader>cf <Action>(ReformatCode)
+map <leader>cr <Action>(RenameElement)
+
+" Comment
+map <leader>/ <Action>(CommentByLineComment)
+
+" Display/UI
+map <leader>ud <Action>(ToggleDistractionFreeMode)
+map <leader>uz <Action>(ToggleZenMode)
+map <leader>uf <Action>(ToggleFullScreen)
+
+" File Operations
+map <leader>fn :enew<CR>
+map <leader>e :NERDTreeToggle<CR>
+
+" Find/Search
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fr <Action>(RecentFiles)
+nmap <leader>fg <Action>(FindInPath)
+nmap <leader>fc <Action>(FileStructurePopup)
+nmap <leader>fa <Action>(SearchEverywhere)
+map <leader><leader> <Plug>(easymotion-s)
+
+" Git
+nmap <leader>gg <Action>(ActivateVersionControlToolWindow)
+nmap <leader>gb <Action>(Annotate)
+nmap <leader>gf <Action>(Vcs.ShowTabbedFileHistory)
+nmap <leader>gl <Action>(Vcs.Show.Log)
+
+" Go to
+nmap <leader>gd <Action>(GotoDeclaration)
+nmap <leader>gy <Action>(GotoTypeDeclaration)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gr <Action>(ShowUsages)
+nmap <leader>gt <Action>(GotoTest)
+nmap gd <Action>(GotoDeclaration)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gr <Action>(ShowUsages)
+
+" Go Back/Forward
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+
+" Harpoon
+nmap <leader>hm <Action>(HarpoonerQuickMenu)
+nmap <leader>ha <Action>(HarpoonerToggleFile)
+nmap <M-j> <Action>(HarpoonerOpenFile0)
+nmap <M-k> <Action>(HarpoonerOpenFile1)
+nmap <M-l> <Action>(HarpoonerOpenFile2)
+nmap <M-ö> <Action>(HarpoonerOpenFile3)
+nmap <leader>hn <Action>(HarpoonerNextFileAction)
+nmap <leader>hp <Action>(HarpoonerPreviousFileAction)
+nmap <leader>hc <Action>(HarpoonerClearMenu)
+
+" Lazy
+map <leader>l <Action>(WelcomeScreen)
+
+" Quit
+map <leader>qq :qa<CR>
+map <leader>qQ :qa!<CR>
+
+" Refactoring
+map <leader>rn <Action>(RenameElement)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rf <Action>(IntroduceField)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+" Search
+nmap <leader>sa <Action>(SearchEverywhere)
+nmap <leader>sf <Action>(GotoFile)
+nmap <leader>sr <Action>(RecentFiles)
+nmap <leader>sc <Action>(FileStructurePopup)
+nmap <leader>sg <Action>(FindInPath)
+
+" Tabs
+map <leader><tab>l :tablast<CR>
+map <leader><tab>o :tabonly<CR>
+map <leader><tab>f :tabfirst<CR>
+map <leader><tab><tab> :tabnew<CR>
+map <leader><tab>] :tabnext<CR>
+map <leader><tab>d :tabclose<CR>
+map <leader><tab>[ :tabprevious<CR>
+
+" Terminal
+map <leader>ft <Action>(ActivateTerminalToolWindow)
+map <leader>fT <Action>(Terminal.OpenInTerminal)
+
+" Windows
+map <leader>wh <Action>(SplitHorizontally)
+map <leader>wv <Action>(SplitVertically)
+map <leader>wd <Action>(Unsplit)
+map <leader>ww <C-w>w
+map <leader>wm <Action>(MoveEditorToOppositeTabGroup)
+
+" Diagnostics
+map <leader>xd <Action>(ActivateProblemsViewToolWindow)
+map <leader>xx <Action>(ActivateProblemsViewToolWindow)
+
+" Flash.nvim
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)
+nmap f <Action>(flash.find)
+xmap f <Action>(flash.find)
+nmap F <Action>(flash.find_backward)
+xmap F <Action>(flash.find_backward)
+nmap t <Action>(flash.till)
+xmap t <Action>(flash.till)
+nmap T <Action>(flash.till_backward)
+xmap T <Action>(flash.till_backward)
+nmap ; <Action>(flash.repeat)
+xmap ; <Action>(flash.repeat)
+nmap , <Action>(flash.repeat_backward)
+xmap , <Action>(flash.repeat_backward)
+nmap S <Action>(flash.treesitter)
+xmap S <Action>(flash.treesitter)
+omap r <Action>(flash.remote)
+
+" Which-Key Configuration
+let g:WhichKey_FontSize = 16
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+
+" Which-Key Descriptions
+let g:WhichKeyDesc_leader = "<leader> Leader"
+let g:WhichKeyDesc_buffer = "<leader>b Buffer"
+let g:WhichKeyDesc_buffer_switch = "<leader>bb Switch buffer"
+let g:WhichKeyDesc_buffer_delete = "<leader>bd Delete buffer"
+let g:WhichKeyDesc_code = "<leader>c Code"
+let g:WhichKeyDesc_code_action = "<leader>ca Code action"
+let g:WhichKeyDesc_code_rename = "<leader>cr Rename"
+let g:WhichKeyDesc_code_format = "<leader>cf Format"
+let g:WhichKeyDesc_comment = "<leader>/ Comment"
+let g:WhichKeyDesc_ui = "<leader>u UI"
+let g:WhichKeyDesc_file = "<leader>f Find"
+let g:WhichKeyDesc_file_explorer = "<leader>e Explorer"
+let g:WhichKeyDesc_git = "<leader>g Git"
+let g:WhichKeyDesc_harpoon = "<leader>h Harpoon"
+let g:WhichKeyDesc_lazy = "<leader>l Lazy"
+let g:WhichKeyDesc_quit = "<leader>q Quit"
+let g:WhichKeyDesc_refactor = "<leader>r Refactor"
+let g:WhichKeyDesc_search = "<leader>s Search"
+let g:WhichKeyDesc_tabs = "<leader><tab> Tabs"
+let g:WhichKeyDesc_window = "<leader>w Window"
+let g:WhichKeyDesc_diagnostics = "<leader>x Diagnostics"
+let g:WhichKeyDesc_easymotion = "<leader><leader> Jump"
