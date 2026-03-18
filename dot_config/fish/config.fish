@@ -18,6 +18,7 @@ abbr -a chze "chezmoi edit"
 abbr -a chza "chezmoi apply"
 abbr -a chzadd "chezmoi add"
 abbr -a chzu "chezmoi update"
+abbr -a gll "git log --pretty=oneline"
 # overwrite greeting
 # potentially disabling fastfetch
 #function fish_greeting
