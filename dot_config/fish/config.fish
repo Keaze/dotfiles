@@ -13,7 +13,10 @@ abbr -a pacman "sudo pacman"
 abbr -a cd z
 abbr -a vi nvim
 abbr -a vim nvim
-
+abbr -a chze "chezmoi edit"
+abbr -a chza "chezmoi apply"
+abbr -a chzadd "chezmoi add"
+abbr -a chzu "chezmoi update"
 # overwrite greeting
 # potentially disabling fastfetch
 #function fish_greeting
