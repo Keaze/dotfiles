@@ -11,6 +11,7 @@ end
 
 abbr -a pacman "sudo pacman"
 abbr -a pac "sudo pacman"
+abbr -a pacu "sudo pacman -Syu"
 abbr -a cd z
 abbr -a vi nvim
 abbr -a vim nvim
