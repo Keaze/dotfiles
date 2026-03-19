@@ -25,3 +25,4 @@ abbr -a gll "git log --pretty=oneline"
 #function fish_greeting
 #    # smth smth
 #end
+export PATH="$HOME/.local/bin:$PATH"
