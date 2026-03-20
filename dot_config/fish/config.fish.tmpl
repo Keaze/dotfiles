@@ -25,5 +25,4 @@ abbr -a gll "git log --pretty=oneline"
 #function fish_greeting
 #    # smth smth
 #end
-export PATH="$HOME/.local/bin:$PATH"
 set -x AVANTE_OPENAI_API_KEY ="{{ (output "bw" "get" "password" "ChatGPT-API-Key") | trim }}"
