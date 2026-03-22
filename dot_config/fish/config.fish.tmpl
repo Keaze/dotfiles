@@ -48,3 +48,4 @@ abbr -a treea "eza --tree --all"
 #    # smth smth
 #end
 set -x AVANTE_OPENAI_API_KEY ="{{ (output "bw" "get" "password" "ChatGPT-API-Key") | trim }}"
+set -Ux PATH $PATH ~/devtools/flutter/bin
