@@ -27,48 +27,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 map Q gq
- * Diese Klasse enthält Methoden, um zu prüfen, ob ein Platz das leerfahren Knz habenrden darf,
-crement<cr>    /**
-     * Ermittelt und setzt das Platz-Leerfahren-Kennzeichen für einen Artikel, falls notwendig.
-     * <p>
-     * Prüft, ob für den angegebenen Artikel und Mandanten bereits ein Platz mit Leerfahren-Kennzeichen existiert.
-     * Falls nicht, wird der nächste geeignete Platz gesucht und das Kennzeichen gesetzt.
-     *
-     * @param artikelnr      Die Artikelnummer
-     * @param mandant        Der Mandant
-     * @param aktuellerPlatz Der aktuelle Platz (optional, kann leer sein)
-     */
-    /**
-     * Prüft, ob ein Platz leergefahren werden darf.
-     * <p>
-     * Die Erlaubnis richtet sich nach den in den Systemparametern hinterlegten Platzarten.
-     *
-     * @param platzId Die Platz-ID
-     * @return true, wenn der Platz leergefahren werden darf, sonst false
-     */
-    /**
-     * Steuert das automatische Leerfahren eines Platzes im Kontext eines Tpa.
-     * <p>
-     * Prüft, ob die Bedingungen für das Leerfahren erfüllt sind (Platz leer, Platzart erlaubt, Tpa-Typ erlaubt)
-     * und ruft ggf. die eigentliche Leerfahren-Logik auf.
-     *
-     * @param tpa Das Tpa-Objekt
-     */
-    /**
-     * Liefert die Loggerinfo für die aktuelle Work-Instanz.
-     *
-     * @return Loggerinfo-String
-     */
-    /**
-     * Liefert die aktuelle DAO-Factory.
-     *
-     * @return DAO-Factory
-     */
-    /**
-     * Liefert die aktuelle Logik-Factory.
-     *
-     * @return Logik-Factory
-     */
 
 " Map Ctrl+X to decrement  
 nnoremap <C-x> :DialDecrement<cr>
