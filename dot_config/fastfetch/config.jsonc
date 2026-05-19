@@ -1,0 +1,46 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  // "logo": {
+  //   "type": "chafa",
+  //   "source": "/home/daniel/Pictures/cachyos/Schnuffi_Korb.jpg",
+  //   "width": 32,
+  //   "height": 18,
+  //   "chafa": {
+  //     "symbols": "braille",
+  //     "ditherMode": "DIFFUSION",
+  //     "colorSpace": "DIN99D",
+  //     "fgOnly": true
+  //   }
+  // },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
+  ]
+}
