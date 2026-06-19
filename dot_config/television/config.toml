@@ -217,8 +217,6 @@ fallback_channel = "files"
   "vim",
   "nano",
   "bat",
-  "cp",
-  "mv",
   "rm",
   "touch",
   "chmod",
@@ -232,6 +230,7 @@ fallback_channel = "files"
   "nvim",
   "xz",
 ]
+"files-and-dirs" = ["mv", "cp", "rsync"]
 "git-diff" = ["git add", "git restore"]
 "git-branch" = [
   "git checkout",
