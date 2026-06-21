@@ -9,6 +9,7 @@ $directory\
 [](bg:yellow fg:peach)\
 $git_branch\
 $git_status\
+$custom\
 [](fg:yellow bg:green)\
 $c\
 $rust\
@@ -74,6 +75,13 @@ truncation_symbol = "…/"
 "Music" = "󰝚 "
 "Pictures" = " "
 "Developer" = "󰲋 "
+
+[custom.jj]
+command = "jj log -r @ --no-graph -T 'change_id.shortest(8) ++ if(conflict, \"⚡\", \"\")'"
+when = "jj root --quiet 2>/dev/null"
+symbol = "󰊢 "
+style = "bg:yellow fg:crust"
+format = '[[ $symbol$output ](fg:crust bg:yellow)]($style)'
 
 [git_branch]
 symbol = ""
