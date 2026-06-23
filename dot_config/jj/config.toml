@@ -6,8 +6,23 @@ email = "danielwiese@sent.com"
 
 [ui]
 merge-editor = "bc"
+default-command = "log"                                         # bare `jj` shows the log
+editor = "nvim"
+diff-editor = ":builtin"                                        # silences the "set a diff-editor" hint, uses scm-record
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
 
 [merge-tools.bc]
 program = "bcompare"
 merge-args = ["$left", "$right", "$base", "$output"]
 edit-args = ["$left", "$right"]
+
+[aliases]
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]                        # focused log
+
+[revset-aliases]
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
+
+[fix.tools.rustfmt]
+command = ["rustfmt", "--emit", "stdout"]
+patterns = ["glob:'**/*.rs'"]
