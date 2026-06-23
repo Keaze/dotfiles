@@ -19,6 +19,7 @@ edit-args = ["$left", "$right"]
 [aliases]
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]                        # focused log
+la = ["log", "-r", "all()"]
 
 [revset-aliases]
 "closest_bookmark(to)" = "heads(::to & bookmarks())"
