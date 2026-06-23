@@ -1,0 +1,13 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Daniel Wiese"
+email = "danielwiese@sent.com"
+
+[ui]
+merge-editor = "bc"
+
+[merge-tools.bc]
+program = "bcompare"
+merge-args = ["$left", "$right", "$base", "$output"]
+edit-args = ["$left", "$right"]
