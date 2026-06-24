@@ -71,6 +71,5 @@ abbr -a treea "eza --tree --all"
 #function fish_greeting
 #    # smth smth
 #end
-set -x AVANTE_OPENAI_API_KEY ="{{ (output "bw" "get" "password" "ChatGPT-API-Key") | trim }}"
 set -Ux CHROME_EXECUTABLE /usr/bin/chromium
 fish_add_path ~/devtools/flutter/bin
