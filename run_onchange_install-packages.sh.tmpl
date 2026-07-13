@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ if eq .chezmoi.osRelease.idLike "arch" -}}
+# Bootstrap paru if missing (needed for the AUR section below)
+if ! command -v paru &>/dev/null; then
+  sudo pacman -S --needed --noconfirm base-devel git
+  git clone https://aur.archlinux.org/paru-bin.git /tmp/paru-bin
+  (cd /tmp/paru-bin && makepkg -si --noconfirm)
+  rm -rf /tmp/paru-bin
+fi
+
+# Native packages
+sudo pacman -S --needed --noconfirm \
+{{ range .packages.pacman }}  {{ . }} \
+{{ end }}
+
+# AUR packages
+paru -S --needed --noconfirm \
+{{ range .packages.aur }}  {{ . }} \
+{{ end }}
+{{ end -}}
