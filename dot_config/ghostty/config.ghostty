@@ -1,0 +1,4 @@
+theme = Dayfox
+font-family = CaskaydiaCove Nerd Font Mono
+font-size = 10
+gtk-wide-tabs = false
