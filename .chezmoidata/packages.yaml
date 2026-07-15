@@ -20,6 +20,7 @@ packages:
     - glances
     - gleam
     - go
+    - ghostty
     - htop
     - httpie
     - jujutsu
@@ -59,12 +60,7 @@ packages:
     - ttf-opensans
     - ufw
     - ufw-extras
-    - unrar
-    - unzip
     - vlc-plugins-all
-    - wine
-    - winetricks
-    - wireplumber
     - wl-clipboard
     - xclip
     - yay
