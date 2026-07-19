@@ -1,0 +1,19 @@
+[metadata]
+name = "files-and-dirs"
+description = "A channel to select files and directories (for mv, cp, rsync destinations)"
+requirements = ["fd", "bat"]
+
+[source]
+command = ["fd -t f", "fd . / -t d --max-depth 8 -E /proc -E /sys -E /dev -E /run"]
+
+[preview]
+command = "[ -d '{}' ] && ls -la --color=always '{}' || bat -n --color=always '{}'"
+env = { BAT_THEME = "ansi" }
+
+[keybindings]
+ctrl-up = "actions:goto_parent_dir"
+
+[actions.goto_parent_dir]
+description = "Re-opens tv in the parent directory"
+command = "tv files-and-dirs .."
+mode = "execute"
