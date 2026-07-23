@@ -2,3 +2,9 @@
 type = "git-repo"
 url = "https://github.com/tmux-plugins/tpm"
 refreshPeriod = "1h"
+
+
+[".config/tmux/plugins/catppuccin/tmux"]
+type = "git-repo"
+url = "https://github.com/catppuccin/tmux.git"
+refreshPeriod = "1h"
