@@ -2,6 +2,13 @@ packages:
   pacman:
     - atuin
     - bat
+    - magic-wormhole
+    - moreutils
+    - vipe
+    - termshark
+    - ncdu
+    - ipcalc
+    - progress
     - betterbird-bin
     - bitwarden-cli
     - btop
