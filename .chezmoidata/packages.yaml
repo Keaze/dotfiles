@@ -30,6 +30,7 @@ packages:
     - ghostty
     - htop
     - httpie
+    - just
     - jujutsu
     - lazydocker
     - lazygit
