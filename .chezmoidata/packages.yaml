@@ -65,6 +65,7 @@ packages:
     - ttf-meslo-nerd
     - ttf-opensans
     - ufw
+    - unp
     - ufw-extras
     - vlc-plugins-all
     - wl-clipboard
