@@ -19,20 +19,20 @@ per_disc_numbering: yes  # track numbers restart per disc instead of running con
 ui:
   color: yes
   colors:
-    text_success: ['bold', 'darkgreen']
-    text_warning: ['bold', 'brown']
-    text_error: ['bold', 'darkred']
-    text_highlight: ['bold', 'darkred']
-    text_highlight_minor: ['darkgray']
-    action_default: ['bold', 'darkblue']
-    action: ['bold', 'darkblue']
-    text_faint: ['darkgray']
-    import_path: ['bold', 'darkblue']
-    import_path_items: ['bold', 'darkblue']
-    changed: ['brown']
-    text_diff_added: ['bold', 'darkgreen']
-    text_diff_removed: ['bold', 'darkred']
-    action_description: ['darkgray']
+    text_success: darkgreen
+    text_warning: brown
+    text_error: darkred
+    text_highlight: darkred
+    text_highlight_minor: darkgray
+    action_default: darkblue
+    action: darkblue
+    text_faint: darkgray
+    import_path: darkblue
+    import_path_items: darkblue
+    changed: brown
+    text_diff_added: darkgreen
+    text_diff_removed: darkred
+    action_description: darkgray
 
 plugins: fetchart embedart lastgenre scrub duplicates inline musicbrainz lyrics
 
