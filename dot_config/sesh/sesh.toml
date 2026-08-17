@@ -1,2 +1,7 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
 blacklist = ["scratch"]
+
+[[session]]
+name = "obs"
+path = "/home/daniel/Documents/obsidian/Vault"
+startup_command = "pi"
