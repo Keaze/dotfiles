@@ -1,0 +1,61 @@
+directory: /home/daniel/Music/Library
+library: /home/daniel/Music/musiclibrary.db
+
+paths:
+    default: $albumartist/$album%aunique{}/$disc-$track $title
+    singleton: Non-Album/$artist/$title
+    comp: Compilations/$album%aunique{}/$track $title
+
+
+import:
+  copy: yes              # keep originals untouched until you trust the pipeline
+  write: yes             # write tags into the files (Navidrome reads tags, not the beets db)
+  duplicate_action: ask
+  incremental: yes       # remembers already-imported dirs, great for re-running on a staging folder
+  log: /home/daniel/Music/import.log
+
+per_disc_numbering: yes  # track numbers restart per disc instead of running continuously
+
+ui:
+  color: yes
+  colors:
+    text_success: ['bold', 'darkgreen']
+    text_warning: ['bold', 'brown']
+    text_error: ['bold', 'darkred']
+    text_highlight: ['bold', 'darkred']
+    text_highlight_minor: ['darkgray']
+    action_default: ['bold', 'darkblue']
+    action: ['bold', 'darkblue']
+    text_faint: ['darkgray']
+    import_path: ['bold', 'darkblue']
+    import_path_items: ['bold', 'darkblue']
+    changed: ['brown']
+    text_diff_added: ['bold', 'darkgreen']
+    text_diff_removed: ['bold', 'darkred']
+    action_description: ['darkgray']
+
+plugins: fetchart embedart lastgenre scrub duplicates inline musicbrainz lyrics
+
+fetchart:
+  auto: yes
+cover_art_filename: cover  # writes cover.jpg into album dirs — Navidrome picks this up
+
+embedart:
+  auto: yes                # also embeds art into the files themselves
+
+lastgenre:
+  auto: yes
+  count: 1                 # single clean genre tag instead of comma soup
+
+scrub:
+  auto: yes                # strips junk/legacy tags before beets writes clean ones
+
+lyrics:
+  auto: yes          # fetch on future imports too
+  sources:
+    - lrclib
+    - genius
+  synced: yes        # prefer time-synced lyrics (lrclib only)
+
+
+
