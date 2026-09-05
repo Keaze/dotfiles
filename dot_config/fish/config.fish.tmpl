@@ -82,3 +82,13 @@ abbr -a sf 'sesh connect (sesh list --icons | tv stdin)'
 #end
 set -Ux CHROME_EXECUTABLE /usr/bin/chromium
 fish_add_path ~/devtools/flutter/bin
+
+# auto-start tmux (attach existing "main" session or create it)
+if status is-interactive
+    and not set -q TMUX
+    and not set -q CLAUDECODE
+    and not set -q VSCODE_RESOLVING_ENVIRONMENT
+    and not set -q INSIDE_EMACS
+    and test "$TERM" != linux
+    exec tmux new-session -A -s main
+end
