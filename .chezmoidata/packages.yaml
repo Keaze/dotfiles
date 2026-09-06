@@ -70,6 +70,7 @@ packages:
     - vlc-plugins-all
     - wl-clipboard
     - xclip
+    - yazi
     - yay
     - zed
     - zen-browser-bin
