@@ -24,7 +24,7 @@ paru -S --needed --noconfirm \
 # Flatpak apps
 if command -v flatpak &>/dev/null; then
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  sudo flatpak install -y --noninteractive flathub \
+  sudo flatpak install -y --noninteractive --or-update flathub \
 {{ range .packages.flatpak.flathub }}    {{ . }} \
 {{ end }}
 
