@@ -148,3 +148,12 @@ event_date_format = "{:%A, %d.%m.%Y}"
 [shell.privacy]
 # Games probe the mic at startup (voice chat) and trigger the "microphone stopped" OSD
 mic_filter_regex = "World of Warcraft|Battle\\.net"
+
+# Steam and Discord notifications still show during Do Not Disturb (e.g. while gaming, see hypr/scripts/gaming-quiet.sh)
+[notification.filter.steam]
+match = "steam"
+bypass_dnd = true
+
+[notification.filter.discord]
+match = "discord"
+bypass_dnd = true
