@@ -8,6 +8,7 @@ packages:
     - ncdu
     - ipcalc
     - progress
+    - anki
     - betterbird-bin
     - bitwarden-cli
     - btop
@@ -34,6 +35,7 @@ packages:
     - lazydocker
     - lazygit
     - lazyjj
+    - libreoffice-still
     - luarocks
     - mullvad-vpn
     - neovim
@@ -44,6 +46,7 @@ packages:
     - obsidian
     - okular
     - opencode
+    - rclone
     - ripgrep
     - shelly
     - starship
@@ -67,6 +70,7 @@ packages:
     - ufw
     - unp
     - ufw-extras
+    - vlc
     - vlc-plugins-all
     - wl-clipboard
     - xclip
