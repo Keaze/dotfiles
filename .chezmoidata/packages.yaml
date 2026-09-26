@@ -16,6 +16,7 @@ packages:
     - chezmoi
     - chromium
     - curlie
+    - difftastic
     - discord
     - duf
     - dust
