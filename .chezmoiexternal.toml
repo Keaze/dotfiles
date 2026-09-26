@@ -8,3 +8,8 @@ refreshPeriod = "1h"
 type = "git-repo"
 url = "https://github.com/catppuccin/tmux.git"
 refreshPeriod = "1h"
+
+# Own repo, edited in place: cloned only if missing, then managed with git directly
+[".config/nvim"]
+type = "git-repo"
+url = "git@github.com:Keaze/Neovim-Config.git"
