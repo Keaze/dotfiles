@@ -144,3 +144,7 @@ show_labels = false
 
 [calendar]
 event_date_format = "{:%A, %d.%m.%Y}"
+
+[shell.privacy]
+# Games probe the mic at startup (voice chat) and trigger the "microphone stopped" OSD
+mic_filter_regex = "World of Warcraft|Battle\\.net"
