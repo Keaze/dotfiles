@@ -7,3 +7,18 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("xhost +SI:localuser:root")
     hl.exec_cmd("xembedsniproxy") -- X11/Wine tray icons (e.g. Battle.net) into the Noctalia tray; from plasma-workspace
 end)
+
+-- Silence Noctalia popups (OSD incl. mic/volume, notifications) while the gaming workspace is visible
+local gamingQuiet = false
+local function updateGamingQuiet()
+    local visible = false
+    for _, m in ipairs(hl.get_monitors()) do
+        local ws = m.active_workspace
+        if ws and ws.name == "gaming" then visible = true end
+    end
+    if visible == gamingQuiet then return end
+    gamingQuiet = visible
+    hl.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/gaming-quiet.sh " .. (visible and "on" or "off"))
+end
+hl.on("workspace.active", updateGamingQuiet)
+hl.on("monitor.focused", updateGamingQuiet)
