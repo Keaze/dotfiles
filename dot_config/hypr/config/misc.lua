@@ -13,7 +13,7 @@ hl.config({
         middle_click_paste = false,
         enable_swallow = true,
         swallow_regex = "(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]?-terminal)",
-        vrr = 3,
+        vrr = VRR_MODE or 3, -- VRR_MODE can be set per device in local.lua (0 = off)
     },
     render = {
         direct_scanout = 2,
