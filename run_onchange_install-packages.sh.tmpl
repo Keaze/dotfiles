@@ -20,3 +20,24 @@ paru -S --needed --noconfirm \
 {{ range .packages.aur }}  {{ . }} \
 {{ end }}
 {{ end -}}
+
+# Flatpak apps
+if command -v flatpak &>/dev/null; then
+  sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  sudo flatpak install -y --noninteractive flathub \
+{{ range .packages.flatpak.flathub }}    {{ . }} \
+{{ end }}
+
+  install_github_bundle() {
+    local id=$1 repo=$2 url tmp
+    flatpak info "$id" &>/dev/null && return 0
+    url=$(curl -fsSL "https://api.github.com/repos/$repo/releases/latest" \
+      | grep -o '"browser_download_url": *"[^"]*x64\.flatpak"' | cut -d'"' -f4 | head -1)
+    tmp=$(mktemp --suffix=.flatpak)
+    curl -fsSL -o "$tmp" "$url"
+    sudo flatpak install -y --noninteractive "$tmp"
+    rm -f "$tmp"
+  }
+{{ range $id, $repo := .packages.flatpak.github }}  install_github_bundle {{ $id }} {{ $repo }}
+{{ end -}}
+fi

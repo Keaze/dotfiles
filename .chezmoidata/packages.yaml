@@ -80,11 +80,16 @@ packages:
     - bcompare
     - dropbox
     - filen-desktop-appimage-bin
-    - graphify
     - jetbrains-toolbox
     - jjui
     - linux-arctis-manager
     - pince
     - protonhax
-    - sesh
+    - sesh-bin
     - steamtinkerlaunch-git
+  flatpak:
+    flathub:
+      - org.jeffvli.feishin
+    # not on Flathub: installed from the .flatpak bundle of the latest GitHub release (app id: owner/repo)
+    github:
+      com.naps2.Naps2: cyanfish/naps2
