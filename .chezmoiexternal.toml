@@ -4,10 +4,11 @@ url = "https://github.com/tmux-plugins/tpm"
 refreshPeriod = "1h"
 
 
+# Pinned to a release tag; bump the tag to upgrade (no refresh: a tag checkout can't be pulled)
 [".config/tmux/plugins/catppuccin/tmux"]
 type = "git-repo"
 url = "https://github.com/catppuccin/tmux.git"
-refreshPeriod = "1h"
+clone.args = ["--branch", "v2.3.1"]
 
 # Own repo, edited in place: cloned only if missing, then managed with git directly
 [".config/nvim"]
