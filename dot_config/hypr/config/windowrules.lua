@@ -21,6 +21,8 @@ hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspa
 hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true })
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace })
+-- Faugus Launcher (its Proton games, e.g. Battle.net, run as steam_app_default and match the rules below)
+hl.window_rule({ match = { class = "^(io\\.github\\.Faugus\\.faugus-launcher)$" }, workspace = gamingWorkspace })
 hl.window_rule({
     match = {
         class         = gamingApps,
