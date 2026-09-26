@@ -21,6 +21,11 @@ paru -S --needed --noconfirm \
 {{ end }}
 {{ end -}}
 
+# Rust toolchain via the official rustup installer (https://rustup.rs)
+if ! command -v rustup &>/dev/null && [ ! -x "$HOME/.cargo/bin/rustup" ]; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
 # Flatpak apps
 if command -v flatpak &>/dev/null; then
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
