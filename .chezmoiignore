@@ -2,3 +2,4 @@
 .config/hypr/config/local.lua
 .config/uwsm/env.local
 .config/noctalia/*.orig
+.config/hypr/config/local-startup.sh
