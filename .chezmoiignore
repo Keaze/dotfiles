@@ -1,0 +1,4 @@
+# Device-specific files (monitors, GPU). Each device keeps its own untracked copy.
+.config/hypr/config/local.lua
+.config/uwsm/env.local
+.config/noctalia/*.orig
