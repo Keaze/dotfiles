@@ -8,7 +8,7 @@ set showmode
 set showcmd
 set smartindent
 set visualbell
-set clipboard+=unnamed
+set clipboard+=unnamed,unnamedplus,ideaput
 set ignorecase
 set smartcase
 set hlsearch
