@@ -24,6 +24,7 @@ thickness = 35
     padding = 6.0
 
 [shell]
+date_format = "{:%d.%m.%Y}"
 clipboard_image_action_command = "swash --stdin --name \"swash-$(date +'%Y-%m-%d_%H:%M:%S').png\""
 launch_apps_as_systemd_services = true
 polkit_agent = true
@@ -91,7 +92,7 @@ wallpaper_scheme = "m3-tonal-spot"
 
 [widget.clock]
 color = "secondary"
-format = "{:%H:%M %A %m/%d/%y}"
+format = "{:%H:%M %A %d.%m.%Y}"
 
 [widget.launcher]
 color = "secondary"
@@ -140,3 +141,6 @@ capsule_fill = "on_primary"
 inactive_pill_size = 1.0
 pill_scale = 0.80
 show_labels = false
+
+[calendar]
+event_date_format = "{:%A, %d.%m.%Y}"
