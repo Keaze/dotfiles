@@ -12,7 +12,7 @@ radius_bottom_right = 12
 radius_top_left = 0
 radius_top_right = 0
 scale = 1.10
-start = [ "launcher", "clock", "spacer_1", "group:g1", "spacer_1", "caffeine", "screenshot", "weather" ]
+start = [ "launcher", "clock", "weather", "spacer_1", "group:g1", "spacer_1", "caffeine", "screenshot" ]
 thickness = 35
 
     [[bar.default.capsule_group]]
