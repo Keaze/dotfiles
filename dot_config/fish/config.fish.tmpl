@@ -46,33 +46,33 @@ abbr -a beetmn "beet import --move --noincremental ."
 # zoxide interactive
 abbr -a zi "z -i"
 # jj
-abbr -a j   jj
-abbr -a jl  'jj log'
+abbr -a j jj
+abbr -a jl 'jj log'
 abbr -a jla 'jj log -r "all()"'
-abbr -a jd  'jj diff'
-abbr -a js  'jj show'
+abbr -a jd 'jj diff'
+abbr -a js 'jj show'
 abbr -a js- 'jj show @-'
 abbr -a jst 'jj status'
-abbr -a jn  'jj new'
-abbr -a je  'jj edit'
+abbr -a jn 'jj new'
+abbr -a je 'jj edit'
 abbr -a jde 'jj describe'
 abbr -a jdem 'jj describe -m'
 abbr -a jsq 'jj squash'
-abbr -a jr  'jj rebase'
-abbr -a jf  'jj git fetch'
-abbr -a jp  'jj git push'
-abbr -a jt  'jj tug'
-abbr -a jo  'jj op log'
-abbr -a ju  'jj undo'
+abbr -a jr 'jj rebase'
+abbr -a jf 'jj git fetch'
+abbr -a jp 'jj git push'
+abbr -a jt 'jj tug'
+abbr -a jo 'jj op log'
+abbr -a ju 'jj undo'
 # eza tree views
 abbr -a tree "eza --tree"
 abbr -a treea "eza --tree --all"
 # ssh
-abbr -a sc  'sesh connect'
-abbr -a sl  'sesh list'
+abbr -a sc 'sesh connect'
+abbr -a sl 'sesh list'
 abbr -a scl 'sesh clone'
 abbr -a sla 'sesh last'
-abbr -a sr  'sesh root'
+abbr -a sr 'sesh root'
 abbr -a sf 'sesh connect (sesh list --icons | tv stdin)'
 
 # overwrite greeting
@@ -82,6 +82,7 @@ abbr -a sf 'sesh connect (sesh list --icons | tv stdin)'
 #end
 set -Ux CHROME_EXECUTABLE /usr/bin/chromium
 fish_add_path ~/devtools/flutter/bin
+fish_add_path (go env GOPATH)/bin
 
 # auto-start tmux (attach existing "main" session or create it)
 if status is-interactive
