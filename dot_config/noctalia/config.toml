@@ -90,6 +90,9 @@ wallpaper_scheme = "m3-tonal-spot"
     [theme.templates]
     builtin_ids = [ "kcolorscheme", "qt" ]  # others write into files shared with Plasma
 
+[widget.battery]
+color = "secondary"
+
 [widget.clock]
 color = "secondary"
 format = "{:%H:%M %A %d.%m.%Y}"
