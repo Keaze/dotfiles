@@ -3,3 +3,5 @@
 	name = Daniel
 [init]
 	defaultBranch = master
+[pull]
+	rebase = true
