@@ -1,0 +1,5 @@
+#!/bin/sh
+# Swash builds its CSS with printf("%.2f"), so a comma-decimal LC_NUMERIC
+# (de_AT) yields "alpha(black, 0,70)", GTK drops the rule and the white
+# overlay text lands on the light theme background.
+LC_NUMERIC=C exec /usr/bin/swash "$@"
