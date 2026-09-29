@@ -22,3 +22,15 @@ local function updateGamingQuiet()
 end
 hl.on("workspace.active", updateGamingQuiet)
 hl.on("monitor.focused", updateGamingQuiet)
+
+-- Leave the gaming workspace once its last window closes (Hyprland keeps an empty workspace alive while it is shown).
+-- Deferred so the closed window is no longer counted.
+local gamingLeaveTimer
+hl.on("window.destroy", function ()
+    gamingLeaveTimer = hl.timer(function ()
+        local ws = hl.get_workspace("name:gaming")
+        if ws and ws.visible and ws.windows == 0 then
+            hl.dispatch(hl.dsp.focus({ workspace = "previous" }))
+        end
+    end, { timeout = 200, type = "oneshot" })
+end)
