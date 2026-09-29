@@ -52,6 +52,7 @@ packages:
     - shelly
     - starship
     - steam
+    - superfile
     - syncthing
     - television
     - thefuck
