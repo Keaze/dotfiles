@@ -1,0 +1,23 @@
+#!/bin/sh
+# Toggle dead keys (´ ` ^) of the German layout in Hyprland at runtime.
+#   deadkeys off     -> ´ ` ^ type immediately (de nodeadkeys), e.g. for typing courses
+#   deadkeys on      -> normal German layout (´ + e = é)
+#   deadkeys         -> toggle
+#   deadkeys status  -> print current state
+# Not persistent: login / `hyprctl reload` restore the layout from inputs.lua (dead keys on).
+
+current=$(hyprctl getoption input:kb_variant | head -1 | sed 's/^str: //')
+[ "$current" = "[[EMPTY]]" ] && current=""
+
+case "${1:-toggle}" in
+    off)    variant="nodeadkeys" ;;
+    on)     variant="" ;;
+    toggle) [ "$current" = "nodeadkeys" ] && variant="" || variant="nodeadkeys" ;;
+    status) [ "$current" = "nodeadkeys" ] && echo "dead keys: off" || echo "dead keys: on"; exit 0 ;;
+    *)      echo "usage: deadkeys [on|off|toggle|status]" >&2; exit 1 ;;
+esac
+
+hyprctl eval "hl.config({ input = { kb_variant = \"$variant\" } })" >/dev/null
+if [ "$variant" = "nodeadkeys" ]; then msg="Dead keys off (´ \` ^ type directly)"; else msg="Dead keys on (´ + e = é)"; fi
+echo "$msg"
+noctalia msg notification-show "Keyboard" "$msg" >/dev/null 2>&1 || true
