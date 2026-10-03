@@ -1,0 +1,28 @@
+# ttyper config — https://github.com/max-niederman/ttyper#config
+# language used when -l/--language is not given (list all: ttyper --list-languages)
+default_language = "english200"
+
+# Light theme: defaults adjusted for a light terminal background
+[theme]
+default = "none"
+title = "black;bold"
+input_border = "blue"
+prompt_border = "green"
+border_type = "rounded"
+
+prompt_correct = "green"
+prompt_incorrect = "red"
+prompt_untyped = "darkgray"
+prompt_current_correct = "green;bold"
+prompt_current_incorrect = "red;bold"
+prompt_current_untyped = "blue;bold"
+prompt_cursor = "none;underlined"
+
+results_overview = "blue;bold"
+results_overview_border = "blue"
+results_worst_keys = "blue;bold"
+results_worst_keys_border = "blue"
+results_chart = "blue"
+results_chart_x = "blue"
+results_chart_y = "darkgray;italic"
+results_restart_prompt = "darkgray;italic"

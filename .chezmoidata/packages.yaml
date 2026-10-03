@@ -60,6 +60,7 @@ packages:
     - thefuck
     - tmux
     - tree-sitter-cli
+    - ttyper
     - ttf-bitstream-vera
     - ttf-cascadia-code-nerd
     - ttf-dejavu
@@ -96,7 +97,6 @@ packages:
     - pince
     - protonhax
     - sesh-bin
-    - ttypr-bin
     - steamtinkerlaunch-git
   # crates installed with `cargo install --locked` (binary name = crate name)
   cargo:
