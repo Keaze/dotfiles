@@ -85,6 +85,7 @@ packages:
     - zig
     - zoxide
     - zsh
+    - aria2
   aur:
     - bcompare
     - dropbox
@@ -95,6 +96,7 @@ packages:
     - pince
     - protonhax
     - sesh-bin
+    - ttypr-bin
     - steamtinkerlaunch-git
   # crates installed with `cargo install --locked` (binary name = crate name)
   cargo:

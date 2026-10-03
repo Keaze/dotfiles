@@ -102,3 +102,12 @@ end
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# aria2 (defaults in ~/.config/aria2/aria2.conf)
+abbr -a dl aria2c
+abbr -a dlh 'aria2c --dir .'
+abbr -a dli 'aria2c --input-file'
+abbr -a dl1 'aria2c --max-connection-per-server=1 --split=1'
+abbr -a dlt 'aria2c --seed-time=0'
+abbr -a dlls 'aria2c --show-files'
+abbr -a dlsel 'aria2c --select-file'

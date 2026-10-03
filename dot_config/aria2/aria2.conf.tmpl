@@ -1,0 +1,44 @@
+# aria2 defaults — loaded automatically from ~/.config/aria2/aria2.conf
+# Any option here can be overridden on the command line (e.g. aria2c -x1 URL).
+
+## Files
+dir={{ .chezmoi.homeDir }}/Downloads
+continue=true
+# pre-allocate space without zero-filling (fast on ext4/btrfs/xfs)
+file-allocation=falloc
+auto-file-renaming=true
+allow-overwrite=false
+# use the server-provided filename (Content-Disposition) when available
+content-disposition-default-utf8=true
+remote-time=true
+
+## Connections (HTTP/FTP)
+max-concurrent-downloads=5
+max-connection-per-server=8
+split=8
+min-split-size=4M
+max-tries=5
+retry-wait=5
+connect-timeout=30
+timeout=60
+http-accept-gzip=true
+
+## BitTorrent
+# stop seeding at ratio 1.0 or after 60 minutes, whichever comes first
+seed-ratio=1.0
+seed-time=60
+bt-enable-lpd=true
+enable-dht=true
+enable-dht6=false
+enable-peer-exchange=true
+bt-max-peers=55
+follow-torrent=true
+listen-port=6881-6999
+dht-listen-port=6881-6999
+bt-save-metadata=true
+bt-remove-unselected-file=true
+
+## Console output
+summary-interval=0
+console-log-level=warn
+human-readable=true

@@ -1,0 +1,11 @@
+# ttypr state file: seeded once by chezmoi (create_), then owned by ttypr.
+# ttypr rewrites this file itself (mistake counts, text position), so chezmoi never overwrites it.
+first_boot = false
+show_notifications = true
+show_wpm_notification = true
+save_mistyped = true
+skip_len = 0
+use_default_word_set = true
+use_default_text_set = true
+
+[mistyped_chars]
