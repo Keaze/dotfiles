@@ -21,21 +21,29 @@ $kotlin\
 $haskell\
 $python\
 [](fg:green bg:sapphire)\
+$docker_context\
 $conda\
-[](fg:sapphire bg:lavender)\
-$time\
-[ ](fg:lavender)\
-$cmd_duration\
+[ ](fg:sapphire)\
+$jobs\
+$status\
 $line_break\
 $character"""
+
+right_format = """\
+$cmd_duration\
+[](fg:lavender)\
+$time\
+[](fg:lavender)"""
 
 palette = 'catppuccin_mocha'
 
 [os]
 disabled = false
 style = "bg:red fg:crust"
+format = '[ $symbol ]($style)'
 
 [os.symbols]
+CachyOS = "󰣇"
 Windows = ""
 Ubuntu = "󰕈"
 SUSE = ""
@@ -58,7 +66,6 @@ Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 
 [username]
-show_always = true
 style_user = "bg:red fg:crust"
 style_root = "bg:red fg:crust"
 format = '[ $user]($style)'
@@ -77,8 +84,10 @@ truncation_symbol = "…/"
 "Developer" = "󰲋 "
 
 [custom.jj]
-command = "jj log -r @ --no-graph -T 'change_id.shortest(8) ++ if(conflict, \"⚡\", \"\")'"
-when = "jj root --quiet 2>/dev/null"
+# detect_folders: no process spawn outside jj repos; --ignore-working-copy: skip snapshot (change id is stable)
+command = "jj log -r @ --no-graph --ignore-working-copy -T 'change_id.shortest(8) ++ if(conflict, \"⚡\", \"\")'"
+detect_folders = [".jj"]
+shell = ["sh"]   # default is $SHELL: would spawn fish + config.fish every prompt
 symbol = "󰊢 "
 style = "bg:yellow fg:crust"
 format = '[[ $symbol$output ](fg:crust bg:yellow)]($style)'
@@ -154,6 +163,17 @@ time_format = "%R"
 style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
 
+[jobs]
+symbol = " "
+style = "bold fg:peach"
+format = "[$symbol$number ]($style)"
+
+[status]
+disabled = false
+symbol = "✘"
+style = "bold fg:red"
+format = "[$symbol$status ]($style)"
+
 [line_break]
 disabled = true
 
@@ -167,7 +187,7 @@ vimcmd_replace_symbol = '[❮](bold fg:lavender)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
 [cmd_duration]
-show_milliseconds = true
+show_milliseconds = false
 format = " in $duration "
 style = "bg:lavender"
 disabled = false

@@ -2,6 +2,11 @@ source /usr/share/cachyos-fish-config/cachyos-config.fish
 set -Ux EDITOR nvim
 
 starship init fish | source
+# transient prompt: past prompts collapse to just the ❯ character
+function starship_transient_prompt_func
+    starship module character
+end
+enable_transience
 zoxide init fish | source
 thefuck --alias | source
 
