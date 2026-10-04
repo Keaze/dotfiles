@@ -85,6 +85,8 @@ packages:
     - zen-browser-bin
     - zig
     - zoxide
+    - fish
+    - fisher
     - zsh
     - aria2
   aur:
