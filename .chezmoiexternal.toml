@@ -38,3 +38,13 @@ url = "https://github.com/olets/zsh-abbr.git"
 refreshPeriod = "168h"
 clone.args = ["--recurse-submodules"]
 pull.args = ["--recurse-submodules"]
+
+[".local/share/zsh/plugins/zsh-autopair"]
+type = "git-repo"
+url = "https://github.com/hlissner/zsh-autopair.git"
+refreshPeriod = "168h"
+
+[".local/share/zsh/plugins/zsh-auto-notify"]
+type = "git-repo"
+url = "https://github.com/MichaelAquilina/zsh-auto-notify.git"
+refreshPeriod = "168h"

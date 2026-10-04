@@ -1,0 +1,21 @@
+#!/bin/bash
+# Generate zsh completions for tools that don't ship one (fpath entry in ~/.zshrc).
+# Re-runs when this script changes; delete ~/.local/share/zsh/completions to force regeneration.
+set -uo pipefail
+
+dir="$HOME/.local/share/zsh/completions"
+mkdir -p "$dir"
+
+gen() {
+  local name=$1; shift
+  command -v "$1" &>/dev/null || return 0
+  "$@" >"$dir/_$name.tmp" 2>/dev/null && [ -s "$dir/_$name.tmp" ] \
+    && mv "$dir/_$name.tmp" "$dir/_$name" || rm -f "$dir/_$name.tmp"
+}
+
+gen sesh   sesh completion zsh
+gen tv     tv completions zsh
+gen rustup rustup completions zsh rustup
+SHELL=/usr/bin/zsh gen bun bun completions
+
+rm -f "$HOME/.cache/zsh/zcompdump"*   # force compinit to pick them up

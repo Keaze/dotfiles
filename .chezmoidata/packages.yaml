@@ -37,6 +37,7 @@ packages:
     - lazydocker
     - lazygit
     - lazyjj
+    - libnotify
     - libreoffice-still
     - luarocks
     - mullvad-vpn

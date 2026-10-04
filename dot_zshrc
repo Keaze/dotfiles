@@ -65,14 +65,24 @@ zstyle ':fzf-tab:complete:(cd|z|__zoxide_z):*' fzf-preview 'eza -1 --color=alway
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # ── Plugins (order matters) ─────────────────────────────────────────────────
+bindkey -e   # before plugins: EDITOR=nvim would otherwise default to the vi keymap
 _zplug() { [[ -r $ZPLUGINS/$1 ]] && source $ZPLUGINS/$1 }
 _zplug fzf-tab/fzf-tab.plugin.zsh                       # after compinit
 _zplug zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+_zplug zsh-autopair/autopair.zsh                         # before abbr: both bind space
+ABBR_GET_AVAILABLE_ABBREVIATION=1                         # remind when an abbr was typed out
+ABBR_LOG_AVAILABLE_ABBREVIATION=1
 _zplug zsh-abbr/zsh-abbr.plugin.zsh
 
+# notify when a command takes >10s (like fish's done.fish)
+AUTO_NOTIFY_THRESHOLD=10
+AUTO_NOTIFY_EXPIRE_TIME=5000
+AUTO_NOTIFY_IGNORE=(nvim vim vi man less bat tmux ssh kssh sesh tv lazygit lazyjj jjui
+                    lazydocker yazi spf btop htop glances claude opencode pi fzf z zi)
+_zplug zsh-auto-notify/auto-notify.plugin.zsh
+
 # ── Keybindings (emacs, like fish) ──────────────────────────────────────────
-bindkey -e
 bindkey '^[[H'    beginning-of-line   '^[[1~' beginning-of-line
 bindkey '^[[F'    end-of-line         '^[[4~' end-of-line
 bindkey '^[[3~'   delete-char
@@ -82,6 +92,17 @@ bindkey '^[[1;3C' forward-word        # Alt-Right: accept one word of suggestion
 bindkey '^H'      backward-kill-word  # Ctrl-Backspace
 autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey '^X^E' edit-command-line      # edit line in $EDITOR
+bindkey '^[e'  edit-command-line      # Alt-E (fish)
+bindkey '^[v'  edit-command-line      # Alt-V (fish)
+
+# Alt-S: toggle sudo prefix on current (or previous, if empty) command — fish style
+_sudo_toggle() {
+  [[ -z $BUFFER ]] && BUFFER=$(fc -ln -1)
+  if [[ $BUFFER == sudo\ * ]]; then BUFFER=${BUFFER#sudo }; else BUFFER="sudo $BUFFER"; fi
+  CURSOR=$#BUFFER
+}
+zle -N _sudo_toggle
+bindkey '^[s' _sudo_toggle
 
 # ── Tools ───────────────────────────────────────────────────────────────────
 (( $+commands[starship] )) && eval "$(starship init zsh)"
