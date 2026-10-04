@@ -171,19 +171,19 @@ format = '[ $state( $progress_current/$progress_total) ]($style)'
 disabled = false
 threshold = 3   # tmux pane shells already start at 2 (terminal shell → exec tmux)
 symbol = "󰯠 "
-style = "bold fg:mauve"
-format = "[$symbol$shlvl ]($style)"
+style = "bg:mauve fg:crust"
+format = "[](fg:mauve)[$symbol$shlvl]($style)[ ](fg:mauve)"
 
 [jobs]
 symbol = " "
-style = "bold fg:peach"
-format = "[$symbol$number ]($style)"
+style = "bg:peach fg:crust"
+format = "[](fg:peach)[$symbol$number]($style)[ ](fg:peach)"
 
 [status]
 disabled = false
 symbol = "✘"
-style = "bold fg:red"
-format = "[$symbol$status ]($style)"
+style = "bg:red fg:crust"
+format = "[](fg:red)[$symbol$status]($style)[ ](fg:red)"
 
 [line_break]
 disabled = true
