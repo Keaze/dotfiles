@@ -21,6 +21,7 @@ packages:
     - duf
     - dust
     - dysk
+    - fzf
     - firefox
     - flatpak
     - git
@@ -82,6 +83,7 @@ packages:
     - zen-browser-bin
     - zig
     - zoxide
+    - zsh
   aur:
     - bcompare
     - dropbox

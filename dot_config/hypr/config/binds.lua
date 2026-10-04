@@ -172,3 +172,21 @@ hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special())
 -- Gaming workspace (games from Steam/Faugus land here)
 hl.bind(mainMod .. " + G",         hl.dsp.focus({ workspace = "name:gaming" }))
 hl.bind(mainMod .. " + SHIFT + G", hl.dsp.window.move({ workspace = "name:gaming" }))
+-- Toggle the active game between fullscreen and a centred 16:9 floating window. Floating keeps the
+-- windowed game at a fixed size on any workspace (tiled on workspace 1 it would become a scrolling column).
+-- Move it with SUPER + SHIFT + CONTROL + 1 / SUPER + SHIFT + G.
+hl.bind(mainMod .. " + ALT + G", function ()
+    local w = hl.get_active_window()
+    if not w then return end
+    if w.fullscreen ~= 0 then
+        local m = w.monitor
+        local h = math.floor(m.height * 0.8)
+        local width = math.min(math.floor(h * 16 / 9), math.floor(m.width * 0.9))
+        hl.dispatch(hl.dsp.window.fullscreen_state({ window = w, action = "set", internal = 0, client = 0 }))
+        hl.dispatch(hl.dsp.window.float({ window = w, action = "set" }))
+        hl.dispatch(hl.dsp.window.resize({ window = w, x = width, y = h }))
+        hl.dispatch(hl.dsp.window.center({ window = w }))
+    else
+        hl.dispatch(hl.dsp.window.fullscreen_state({ window = w, action = "set", internal = 2, client = 2 }))
+    end
+end)

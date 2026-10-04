@@ -1,0 +1,129 @@
+# ~/.zshrc — managed by chezmoi. Plugins: .chezmoiexternal.toml → ~/.local/share/zsh/plugins
+
+# ── tmux autostart (attach "main" or create it) ─────────────────────────────
+if [[ -o interactive && -z $TMUX && -z $CLAUDECODE && -z $VSCODE_RESOLVING_ENVIRONMENT \
+      && -z $INSIDE_EMACS && $TERM != linux ]] && (( $+commands[tmux] )); then
+  exec tmux new-session -A -s main
+fi
+
+# ── Environment ─────────────────────────────────────────────────────────────
+export EDITOR=nvim VISUAL=nvim
+export MANROFFOPT=-c
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export CHROME_EXECUTABLE=/usr/bin/chromium
+export BUN_INSTALL=$HOME/.bun
+
+typeset -U path   # dedupe
+path=(
+  ~/.local/bin
+  ~/.cargo/bin
+  $BUN_INSTALL/bin
+  ~/go/bin
+  ~/devtools/flutter/bin
+  $path
+)
+
+# Node: use newest version installed by nvm.fish (shares globals like pi with fish).
+# `nvm` itself is lazy-loaded below.
+() {
+  local -a nodes=(~/.local/share/nvm/v*/bin(N/On))
+  (( $#nodes )) && path=($nodes[1] $path)
+}
+
+# ── Options ─────────────────────────────────────────────────────────────────
+HISTFILE=~/.local/state/zsh/history
+HISTSIZE=100000
+SAVEHIST=100000
+[[ -d ${HISTFILE:h} ]] || mkdir -p ${HISTFILE:h}
+setopt share_history hist_ignore_all_dups hist_ignore_space hist_reduce_blanks
+setopt auto_cd auto_pushd pushd_ignore_dups pushd_silent
+setopt interactive_comments extended_glob no_beep
+WORDCHARS=${WORDCHARS//[\/.-]}   # Ctrl-W / Alt-B stop at / . -
+
+# ── Completion ──────────────────────────────────────────────────────────────
+ZPLUGINS=~/.local/share/zsh/plugins
+ZCACHE=~/.cache/zsh
+[[ -d $ZCACHE ]] || mkdir -p $ZCACHE
+
+fpath=(~/.local/share/zsh/completions $fpath)
+autoload -Uz compinit
+# full security check only once a day
+if [[ -n $ZCACHE/zcompdump(#qN.mh+24) || ! -f $ZCACHE/zcompdump ]]; then
+  compinit -d $ZCACHE/zcompdump
+else
+  compinit -C -d $ZCACHE/zcompdump
+fi
+
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu no                      # fzf-tab takes over
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path $ZCACHE/compcache
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':fzf-tab:complete:(cd|z|__zoxide_z):*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# ── Plugins (order matters) ─────────────────────────────────────────────────
+_zplug() { [[ -r $ZPLUGINS/$1 ]] && source $ZPLUGINS/$1 }
+_zplug fzf-tab/fzf-tab.plugin.zsh                       # after compinit
+_zplug zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+_zplug zsh-abbr/zsh-abbr.plugin.zsh
+
+# ── Keybindings (emacs, like fish) ──────────────────────────────────────────
+bindkey -e
+bindkey '^[[H'    beginning-of-line   '^[[1~' beginning-of-line
+bindkey '^[[F'    end-of-line         '^[[4~' end-of-line
+bindkey '^[[3~'   delete-char
+bindkey '^[[1;5C' forward-word        # Ctrl-Right
+bindkey '^[[1;5D' backward-word       # Ctrl-Left
+bindkey '^[[1;3C' forward-word        # Alt-Right: accept one word of suggestion
+bindkey '^H'      backward-kill-word  # Ctrl-Backspace
+autoload -Uz edit-command-line && zle -N edit-command-line
+bindkey '^X^E' edit-command-line      # edit line in $EDITOR
+
+# ── Tools ───────────────────────────────────────────────────────────────────
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+(( $+commands[zoxide] ))   && eval "$(zoxide init zsh)"
+(( $+commands[tv] ))       && eval "$(tv init zsh)"        # Ctrl-T
+(( $+commands[atuin] ))    && eval "$(atuin init zsh)"     # Ctrl-R / Up (after tv)
+
+# lazy: thefuck's init spawns python (~200ms)
+fuck() { unfunction fuck; eval "$(thefuck --alias)"; fuck "$@" }
+
+# lazy: bash nvm (only needed for `nvm install/use`; node is on PATH already)
+nvm() {
+  unfunction nvm
+  export NVM_DIR=$HOME/.nvm
+  source /usr/share/nvm/nvm.sh
+  nvm "$@"
+}
+
+# ── Functions ───────────────────────────────────────────────────────────────
+jjnt()   { jj new 'trunk()' }                                        # fresh change on trunk
+jjpush() { jj tug && jj git push }                                   # advance bookmark, push
+jjsync() { jj git fetch && jj rebase -b @ -d 'trunk()' }             # rebase onto latest trunk
+backup() { cp -- "$1" "$1.bak" }
+
+# ── Aliases (abbreviations live in ~/.config/zsh-abbr/user-abbreviations) ───
+alias ls='eza -al --color=always --group-directories-first --icons=always'
+alias la='eza -a --color=always --group-directories-first --icons=always'
+alias ll='eza -l --color=always --group-directories-first --icons=always'
+alias lt='eza -aT --color=always --group-directories-first --icons=always'
+alias grep='grep --color=auto'
+alias jctl='journalctl -p 3 -xb'
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+alias update='sudo cachyos-rate-mirrors && sudo pacman -Syu'
+alias big="expac -H M '%m\t%n' | sort -h | nl"
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias psmem='ps auxf | sort -nr -k 4 | head -10'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# local, untracked overrides
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# syntax highlighting must be last
+_zplug fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+unfunction _zplug
