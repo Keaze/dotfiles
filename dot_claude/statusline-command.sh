@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code statusLine — Catppuccin Mocha powerline, matches ~/.config/starship.toml
-#  OS │ dir │ vcs (jj-starship) │ model·effort │ context │ limits │ cost  [cold cache]
+#  OS │ session │ dir │ vcs (jj-starship) │ model·effort │ context │ limits+pace │ cost  [cache expiry]
 
 export LC_NUMERIC=C   # de_DE would print 3,60 and reject "3.6" in printf
 input=$(cat)
@@ -19,6 +19,8 @@ eval "$(jq -r '
   @sh "added=\(.cost.total_lines_added | n)",
   @sh "removed=\(.cost.total_lines_removed | n)",
   @sh "warm=\(.prompt_cache.warm | n)",
+  @sh "cache_exp=\(.prompt_cache.expires_at | n)",
+  @sh "session=\(.session_name | n)",
   @sh "five_pct=\(.rate_limits.five_hour.used_percentage | n)",
   @sh "five_reset=\(.rate_limits.five_hour.resets_at | n)",
   @sh "week_pct=\(.rate_limits.seven_day.used_percentage | n)"
@@ -27,7 +29,7 @@ eval "$(jq -r '
 # --- Catppuccin Mocha (24-bit) ---
 crust="17;17;27"  red="243;139;168"  peach="250;179;135"  yellow="249;226;175"
 green="166;227;161"  teal="148;226;213"  sapphire="116;199;236"
-lavender="180;190;254"  mauve="203;166;247"  overlay="108;112;134"
+lavender="180;190;254"  mauve="203;166;247"  flamingo="242;205;205"
 arr=$'' cap=$''
 reset=$'\e[0m'
 
@@ -56,6 +58,11 @@ human() { awk -v n="$1" 'BEGIN { if (n >= 1e6) printf (n % 1e6 ? "%.1fM" : "%dM"
 # --- Segments ---
 seg "$red" $'\U000f08c7'
 
+if [ -n "$session" ]; then
+  [ "${#session}" -gt 28 ] && session="${session:0:27}…"
+  seg "$flamingo" $'\U000f0369'" $session"
+fi
+
 short="${dir/#$HOME/\~}"
 IFS='/' read -ra parts <<<"$short"
 n=${#parts[@]}
@@ -80,17 +87,26 @@ if [ -n "$ctx_pct" ]; then
   seg "$(level "$ctx_pct")" "$c"
 fi
 
+now=$(date +%s)
+
 if [ -n "$five_pct" ]; then
   r="5h $(printf '%.0f' "$five_pct")%"
+  pace=""
   if [ -n "$five_reset" ]; then
-    left=$(( five_reset - $(date +%s) ))
+    left=$(( five_reset - now ))
+    elapsed=$(( 18000 - left ))
+    # projected usage at reset if the current rate holds; skip first 15 min (too noisy)
+    if [ "$left" -gt 0 ] && [ "$elapsed" -ge 900 ]; then
+      pace=$(awk -v p="$five_pct" -v e="$elapsed" 'BEGIN { printf "%.0f", p * 18000 / e }')
+      r+=" →${pace}%"
+    fi
     [ "$left" -gt 0 ] && r+=" ↻$(( left / 3600 ))h$(printf '%02d' $(( left % 3600 / 60 )))"
   fi
   [ -n "$week_pct" ] && r+=" · 7d $(printf '%.0f' "$week_pct")%"
   worst=$five_pct
   [ -n "$week_pct" ] && [ "${week_pct%.*}" -gt "${worst%.*}" ] && worst=$week_pct
   bgc=$mauve
-  [ "${worst%.*}" -ge 80 ] && bgc=$red
+  { [ "${worst%.*}" -ge 80 ] || [ "${pace:-0}" -ge 100 ]; } && bgc=$red
   seg "$bgc" $'\U000f051f'" $r"
 fi
 
@@ -100,7 +116,13 @@ if [ -n "$cost" ] && awk -v c="$cost" 'BEGIN { exit !(c > 0) }'; then
   seg "$teal" "$s"
 fi
 
-[ "$warm" = "false" ] && seg "$sapphire" "❄ cold cache"
+# cache: cold → next turn re-caches the whole context; warn 5 min before expiry
+if [ "$warm" = "false" ]; then
+  seg "$sapphire" "❄ cold cache"
+elif [ -n "$cache_exp" ]; then
+  cache_left=$(( cache_exp - now ))
+  [ "$cache_left" -gt 0 ] && [ "$cache_left" -le 300 ] && seg "$sapphire" "❄ $(( (cache_left + 59) / 60 ))m"
+fi
 
 end
 printf '%s' "$out"
