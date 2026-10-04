@@ -26,6 +26,12 @@ if ! command -v rustup &>/dev/null && [ ! -x "$HOME/.cargo/bin/rustup" ]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 
+# Cargo crates (skipped if already on PATH; `cargo install --locked <crate>` to upgrade)
+export PATH="$HOME/.cargo/bin:$PATH"
+{{ range .packages.cargo -}}
+command -v {{ . }} &>/dev/null || cargo install --locked {{ . }}
+
+{{ end }}
 # Flatpak apps
 if command -v flatpak &>/dev/null; then
   sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo

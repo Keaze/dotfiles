@@ -7,8 +7,6 @@ $username\
 [](bg:peach fg:red)\
 $directory\
 [](bg:yellow fg:peach)\
-$git_branch\
-$git_status\
 $custom\
 [](fg:yellow bg:green)\
 $c\
@@ -83,23 +81,21 @@ truncation_symbol = "…/"
 "Pictures" = " "
 "Developer" = "󰲋 "
 
-[custom.jj]
-# detect_folders: no process spawn outside jj repos; --ignore-working-copy: skip snapshot (change id is stable)
-command = "jj log -r @ --no-graph --ignore-working-copy -T 'change_id.shortest(8) ++ if(conflict, \"⚡\", \"\")'"
-detect_folders = [".jj"]
-shell = ["sh"]   # default is $SHELL: would spawn fish + config.fish every prompt
-symbol = "󰊢 "
+[custom.vcs]
+# jj-starship (cargo): one module for jj + git, reads repos in-process (no jj/git spawn)
+when = "jj-starship"   # piped to stdin (ignored); the shell cmd exits 1 outside repos → hidden
+# args go in `shell`: starship pipes `command`/`when` to stdin, which jj-starship ignores
+shell = ["jj-starship", "--no-color", "--no-jj-prefix", "--no-git-prefix", "--truncate-name", "24"]
+command = ""
+symbol = " "
 style = "bg:yellow fg:crust"
-format = '[[ $symbol$output ](fg:crust bg:yellow)]($style)'
+format = "[ $symbol$output ]($style)"
 
 [git_branch]
-symbol = ""
-style = "bg:yellow"
-format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+disabled = true
 
 [git_status]
-style = "bg:yellow"
-format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+disabled = true
 
 [nodejs]
 symbol = ""

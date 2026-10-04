@@ -96,6 +96,9 @@ packages:
     - protonhax
     - sesh-bin
     - steamtinkerlaunch-git
+  # crates installed with `cargo install --locked` (binary name = crate name)
+  cargo:
+    - jj-starship
   flatpak:
     flathub:
       - org.jeffvli.feishin
